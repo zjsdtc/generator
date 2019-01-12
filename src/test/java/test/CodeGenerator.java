@@ -112,8 +112,8 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
         strategy.setRestControllerStyle(true);//生成 @RestController 控制器
         strategy.setSuperControllerClass("com.my.common.controller.BaseController");//自定义继承的Controller类全称，带包名
-        strategy.setInclude("sys_user_info");//需要包含的表名，允许正则表达式
-        //strategy.setSuperEntityColumns("id");//自定义基础的Entity类，公共字段
+        strategy.setInclude("sys_user");//需要包含的表名，允许正则表达式
+        strategy.setSuperEntityColumns("id","reg_time","update_time","delete_flag");//自定义基础的Entity类，公共字段
         strategy.setControllerMappingHyphenStyle(false);//驼峰转连字符
 
         //strategy.setTablePrefix("tb_");//表前缀

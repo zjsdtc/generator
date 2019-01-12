@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.extension.api.R;
 import java.util.List;
-import com.my.common.dto.GroupVaild;
+import com.my.common.dto.GroupValid;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -67,7 +67,7 @@ public class ${table.controllerName} {
     @ApiOperation(value="新增数据")
     #end
     @PostMapping
-    public R insert(@RequestBody @Validated({GroupVaild.Save.class}) ${table.entityName} ${table.firstCharToLower(${table.entityName})})throws Exception {
+    public R insert(@RequestBody @Validated({GroupValid.Save.class}) ${table.entityName} ${table.firstCharToLower(${table.entityName})})throws Exception {
 
         return success(this.${table.firstCharToLower(${table.serviceName})}.save(${table.firstCharToLower(${table.entityName})}));
     }
@@ -97,7 +97,7 @@ public class ${table.controllerName} {
     @ApiOperation(value="修改数据")
     #end
     @PutMapping
-    public R update(@RequestBody @Validated({GroupVaild.Update.class})  ${table.entityName} ${table.firstCharToLower(${table.entityName})})throws Exception {
+    public R update(@RequestBody @Validated({GroupValid.Update.class})  ${table.entityName} ${table.firstCharToLower(${table.entityName})})throws Exception {
 
         return success(this.${table.firstCharToLower(${table.serviceName})}.updateById(${table.firstCharToLower(${table.entityName})}));
     }

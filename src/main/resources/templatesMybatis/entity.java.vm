@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 #end
 import com.baomidou.mybatisplus.annotation.TableName;
 import javax.validation.constraints.*;
-import com.my.common.dto.GroupVaild;
+import com.my.common.dto.GroupValid;
 
 /**
  *
@@ -56,7 +56,7 @@ public class ${entity} implements Serializable {
      * ${field.comment}
      */
     #if(${swagger2})
-    @ApiModelProperty(value = "${field.comment}")
+    @ApiModelProperty(value = "${field.comment} ${field.type}")
     #end
 #end
 #if(${field.keyFlag})
@@ -90,8 +90,8 @@ public class ${entity} implements Serializable {
 ## 参数校验 是否为空校验
 #if(!${field.nullFlag})
     #if(${field.keyFlag})
-    @Null(message = "${field.comment}必须为空", groups = {GroupVaild.Save.class})
-    @NotNull(message = "${field.comment}不能为空", groups = {GroupVaild.Update.class})
+    @Null(message = "${field.comment}必须为空", groups = {GroupValid.Save.class})
+    @NotNull(message = "${field.comment}不能为空", groups = {GroupValid.Update.class})
     #else
         #if(${field.propertyType}=="String")
     @NotBlank(message = "${field.comment}不能为空")

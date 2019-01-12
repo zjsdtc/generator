@@ -604,7 +604,7 @@ public class ConfigBuilder {
                 field.setType(results.getString(dbQuery.fieldType()));
                 field.setPropertyName(strategyConfig, processName(field.getName(), strategy));
                 field.setColumnType(dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field.getType()));
-                field.setComment(results.getString(dbQuery.fieldComment()));
+                field.setComment(results.getString(dbQuery.fieldComment()).trim());
                 field.setNullFlag("YES".equalsIgnoreCase(results.getString(dbQuery.fieldNull())));
                 if (strategyConfig.includeSuperEntityColumns(field.getName())) {
                     // 跳过公共字段
