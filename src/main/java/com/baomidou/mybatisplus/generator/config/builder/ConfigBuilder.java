@@ -619,6 +619,7 @@ public class ConfigBuilder {
                             .findFirst().ifPresent(tf -> field.setFill(tf.getFieldFill().name()));
                 }
                 field.setLengthInfo(dbQuery.lengthInfo(results.getString(dbQuery.fieldType())));
+                field.setExample();
                 fieldList.add(field);
             }
         } catch (SQLException e) {

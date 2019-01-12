@@ -23,6 +23,9 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 /**
@@ -48,9 +51,14 @@ public class TableField {
     private String propertyName;
     private IColumnType columnType;
     private String comment;
+    //字段长度
     private Integer maxLength;
+    //精度
     private Integer fraction;
+    //是否数字类型标志
     private boolean numberFlag;
+    //swagger2 example 属性
+    private String example;
 
     private String fill;
     private boolean nullFlag;
@@ -151,6 +159,45 @@ public class TableField {
                 }
             }
         }
+
+    }
+
+    public void setExample() {
+
+        if (DbColumnType.SHORT == this.columnType ||
+                DbColumnType.INTEGER == this.columnType ||
+                DbColumnType.LONG == this.columnType ||
+                DbColumnType.FLOAT == this.columnType ||
+                DbColumnType.DOUBLE == this.columnType ||
+                DbColumnType.BASE_SHORT == this.columnType ||
+                DbColumnType.BASE_INT == this.columnType ||
+                DbColumnType.BASE_LONG == this.columnType ||
+                DbColumnType.BASE_FLOAT == this.columnType ||
+                DbColumnType.BASE_DOUBLE == this.columnType ||
+                DbColumnType.BIG_INTEGER == this.columnType ||
+                DbColumnType.BIG_DECIMAL == this.columnType) {
+            this.example = "0";
+        }
+
+        if (DbColumnType.STRING == this.columnType) {
+            this.example = "string";
+            if(this.maxLength<6){
+                StringBuilder sb = new StringBuilder(this.maxLength);
+                for (int i = 0; i < this.maxLength; i++) {
+                    sb.append("s");
+                }
+                this.example = sb.toString();
+            }
+        }
+
+        if(DbColumnType.LOCAL_DATE == this.columnType){
+            this.example = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
+        }
+
+        if(DbColumnType.LOCAL_DATE_TIME == this.columnType){
+            this.example = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
+        }
+
 
     }
 }
