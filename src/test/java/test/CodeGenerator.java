@@ -12,7 +12,12 @@ import java.util.Scanner;
  * mybatis代码生成器
  */
 public class CodeGenerator {
-    /**
+
+    private static final String[] TABLES = new String[]{"sys_user_copy"};
+    private static final String PARENT_PACKAGE = "com.my.test";//父包名
+    private static final String[] TABLE_PRE_FIX = new String[]{"sys_"};//表前缀
+
+  /**
      * 读取控制台内容
      */
     public static String scanner(String tip) {
@@ -49,7 +54,7 @@ public class CodeGenerator {
         gc.setSwagger2(true);
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(false);// XML columList
+        gc.setBaseColumnList(true);// XML columList
         //gc.setIdType(IdType.ID_WORKER);
         mpg.setGlobalConfig(gc);
 
@@ -65,7 +70,7 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         //pc.setModuleName(scanner("模块名"));//父包模块名
-        pc.setParent("com.my.test");//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
+        pc.setParent(PARENT_PACKAGE);//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
         pc.setEntity("entity");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
@@ -112,11 +117,10 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
         strategy.setRestControllerStyle(true);//生成 @RestController 控制器
         strategy.setSuperControllerClass("com.my.common.controller.BaseController");//自定义继承的Controller类全称，带包名
-        strategy.setInclude("sys_user");//需要包含的表名，允许正则表达式
+        strategy.setInclude(TABLES);//需要包含的表名，允许正则表达式
         strategy.setSuperEntityColumns("id","reg_time","update_time","delete_flag");//自定义基础的Entity类，公共字段
         strategy.setControllerMappingHyphenStyle(false);//驼峰转连字符
-
-        //strategy.setTablePrefix("tb_");//表前缀
+        strategy.setTablePrefix(TABLE_PRE_FIX);//表前缀
         mpg.setStrategy(strategy);
         //mpg.setTemplateEngine(new FreemarkerTemplateEngine());
 
