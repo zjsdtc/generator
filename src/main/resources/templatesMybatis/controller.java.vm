@@ -4,13 +4,16 @@ package ${package.Controller};
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.extension.api.R;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import com.my.common.dto.GroupValid;
+import com.my.common.dto.SearchDTO;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -120,17 +123,17 @@ public class ${table.controllerName} {
     /**
      * 分页查询所有数据
      *
-     * @param page 分页对象
-     * @param ${table.firstCharToLower(${table.entityName})} 查询实体
-     * @return 所有数据
+     * @param request 分页对象
+     * @return 分页数据
      */
     #if(${swagger2})
     @ApiOperation(value="分页查询所有数据")
     #end
     @GetMapping
-    public R select(Page<${table.entityName}> page, ${table.entityName} ${table.firstCharToLower(${table.entityName})}) {
-
-        return success(this.${table.firstCharToLower(${table.serviceName})}.page(page, new QueryWrapper<>(${table.firstCharToLower(${table.entityName})})));
+    public R select(HttpServletRequest request) {
+        SearchDTO<${table.entityName}> searchDTO = new SearchDTO<${table.entityName}>(${table.entityName}.class, request.getParameterMap());
+        IPage<${table.entityName}> page = this.${table.firstCharToLower(${table.serviceName})}.page(searchDTO.getPage(),searchDTO.getQueryWrapper());
+        return success(page);
     }
 
 }

@@ -32,6 +32,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,7 +91,19 @@ public abstract class AbstractTemplateEngine {
                     if (CollectionUtils.isNotEmpty(focList)) {
                         for (FileOutConfig foc : focList) {
                             if (isCreate(FileType.OTHER, foc.outputFile(tableInfo))) {
+                                String outputFile = foc.outputFile(tableInfo);
                                 writer(objectMap, foc.getTemplatePath(), foc.outputFile(tableInfo));
+                                if(injectionConfig.getMap()!=null && injectionConfig.getMap().get("replace")!=null){
+                                    Map<String,String> replaceMap = (Map<String,String>)injectionConfig.getMap().get("replace");
+                                    if(replaceMap.size()>0){
+                                        Path path = Paths.get(outputFile);
+                                        String content = new String(Files.readAllBytes(path));
+                                        for (String key : replaceMap.keySet()) {
+                                            content = content.replaceAll(key, replaceMap.get(key));
+                                        }
+                                        Files.write(path, content.getBytes());
+                                    }
+                                }
                             }
                         }
                     }

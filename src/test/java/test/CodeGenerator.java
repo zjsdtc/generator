@@ -1,21 +1,25 @@
 package test;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * mybatis代码生成器
  */
 public class CodeGenerator {
 
-    private static final String[] TABLES = new String[]{"sys_user_copy"};
-    private static final String PARENT_PACKAGE = "com.my.test";//父包名
-    private static final String[] TABLE_PRE_FIX = new String[]{"sys_"};//表前缀
+    private static final String OUT_PUT_DIR=System.getProperty("user.dir")+"/src/main/java";
+    private static final String[] TABLES = new String[]{"user"};
+    private static final String PARENT_PACKAGE = "com.my.sys";//父包名
+    private static final String[] TABLE_PRE_FIX = new String[]{};//表前缀
 
   /**
      * 读取控制台内容
@@ -41,7 +45,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");//生成文件的输出目录
+        gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
         gc.setOpen(false);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
@@ -79,24 +83,28 @@ public class CodeGenerator {
         mpg.setPackageInfo(pc);
 
         // 自定义配置
-/*        InjectionConfig cfg = new InjectionConfig() {
+        InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                // to do nothing
+                Map<String, Object> map = new HashMap<>();
+                Map<String, String> replaceMap = new HashMap<>();
+                replaceMap.put("龘","\\$");
+                map.put("replace", replaceMap);
+                setMap(map);
             }
         };
-        List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+        //自定义模板
+       List<FileOutConfig> focList = new ArrayList<>();
+        /*focList.add(new FileOutConfig("/templatesMybatis/web/list.vue.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return OUT_PUT_DIR+"/web/"+tableInfo.firstCharToLower(tableInfo.getEntityName())+"List.vue";
             }
         });*/
- /*       cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);*/
-        //mpg.setTemplate(new TemplateConfig().setXml(null));
+        cfg.setFileOutConfigList(focList);
+
+        mpg.setCfg(cfg);
 
         TemplateConfig tc = new TemplateConfig();
         tc.setController("/templatesMybatis/controller.java.vm");
@@ -104,7 +112,8 @@ public class CodeGenerator {
         tc.setServiceImpl("/templatesMybatis/serviceImpl.java.vm");
         tc.setEntity("/templatesMybatis/entity.java.vm");
         tc.setMapper("/templatesMybatis/mapper.java.vm");
-        // tc.setXml("/templatesMybatis/mapper.xml.vm");
+        //tc.setXml("/templatesMybatis/mapper.xml.vm");
+        tc.setXml(null);
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
         mpg.setTemplate(tc);
 
@@ -118,7 +127,7 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);//生成 @RestController 控制器
         strategy.setSuperControllerClass("com.my.common.controller.BaseController");//自定义继承的Controller类全称，带包名
         strategy.setInclude(TABLES);//需要包含的表名，允许正则表达式
-        strategy.setSuperEntityColumns("id","reg_time","update_time","delete_flag");//自定义基础的Entity类，公共字段
+        strategy.setSuperEntityColumns("id","reg_time","update_time","deleted");//自定义基础的Entity类，公共字段
         strategy.setControllerMappingHyphenStyle(false);//驼峰转连字符
         strategy.setTablePrefix(TABLE_PRE_FIX);//表前缀
         mpg.setStrategy(strategy);
