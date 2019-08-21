@@ -1,12 +1,10 @@
 package test;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.util.*;
@@ -16,7 +14,7 @@ import java.util.*;
  */
 public class CodeGenerator {
 
-    private static final String OUT_PUT_DIR=System.getProperty("user.dir")+"/src/main/java";
+    private static final String OUT_PUT_DIR="d:/mycode";//System.getProperty("user.dir")+"/src/main/java";
     private static final String[] TABLES = new String[]{"user"};
     private static final String PARENT_PACKAGE = "com.my.sys";//父包名
     private static final String[] TABLE_PRE_FIX = new String[]{};//表前缀
@@ -47,7 +45,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
-        gc.setOpen(false);//是否打开输出目录
+        gc.setOpen(true);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
