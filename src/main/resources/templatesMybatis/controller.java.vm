@@ -1,33 +1,29 @@
 
-package ${package.Controller};
-
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.extension.api.R;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import com.my.common.dto.GroupValid;
+package import com.my.common.dto.GroupValid;
 import com.my.common.dto.SearchDTO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-#if(${swagger2})
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+
+${package.Controller}
+        ;
+${package.Entity}.${entity};
+${package.Service}.${table.serviceName};
+#if(${swagger2})
 #end
 #if(${restControllerStyle})
 ##import org.springframework.web.bind.annotation.RestController;
 #else
-import org.springframework.stereotype.Controller;
 #end
 #if(${superControllerClassPackage})
-import ${superControllerClassPackage};
+    ${superControllerClassPackage}
+        ;
 #end
 
 /**
@@ -45,7 +41,7 @@ import ${superControllerClassPackage};
 #end
 @RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
 #if(${swagger2})
-@Api(value = "#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end", description = "$!{table.comment}")
+@Api(value = "#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end", tags = "$!{table.comment}")
 #end
 #if(${kotlin})
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
