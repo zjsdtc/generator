@@ -604,7 +604,7 @@ public class ConfigBuilder {
                 field.setType(results.getString(dbQuery.fieldType()));
                 field.setPropertyName(strategyConfig, processName(field.getName(), strategy));
                 field.setColumnType(dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field.getType()));
-                field.setComment(results.getString(dbQuery.fieldComment()).trim());
+                field.setComment(org.apache.commons.lang3.StringUtils.isEmpty(results.getString(dbQuery.fieldComment()))?"无字段说明": org.apache.commons.lang3.StringUtils.trim(results.getString(dbQuery.fieldComment())));
                 field.setNullFlag("YES".equalsIgnoreCase(results.getString(dbQuery.fieldNull())));
                 if (strategyConfig.includeSuperEntityColumns(field.getName())) {
                     // 跳过公共字段
@@ -623,6 +623,7 @@ public class ConfigBuilder {
                 fieldList.add(field);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             System.err.println("SQL Exception：" + e.getMessage());
         }
         tableInfo.setFields(fieldList);

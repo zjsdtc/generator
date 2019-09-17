@@ -181,7 +181,7 @@ public class TableField {
 
         if (DbColumnType.STRING == this.columnType) {
             this.example = "string";
-            if(this.maxLength<6){
+            if(this.maxLength!=null &&this.maxLength<6){
                 StringBuilder sb = new StringBuilder(this.maxLength);
                 for (int i = 0; i < this.maxLength; i++) {
                     sb.append("s");
