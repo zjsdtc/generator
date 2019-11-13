@@ -1,10 +1,13 @@
 package test;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.util.*;
@@ -14,10 +17,15 @@ import java.util.*;
  */
 public class CodeGeneratorForCTSEC {
 
-    private static final String OUT_PUT_DIR="d:/mycode";//System.getProperty("user.dir")+"/src/main/java";
+    private static final String OUT_PUT_DIR = "D:\\IdeaWorkspace\\legalAdvice\\server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
     private static final String[] TABLES = new String[]{"ACTIVITY_TICKET_HIS"};
-    private static final String PARENT_PACKAGE = "com.ctsec.etf";//父包名
+    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.legal.aaa";//父包名
     private static final String[] TABLE_PRE_FIX = new String[]{};//表前缀
+
+
+    private static final String DS_URL = "jdbc:oracle:thin:@172.88.5.107:1521:orcl";
+    private static final String DS_USERNAME = "duanxianbao";
+    private static final String DS_PASSWORD = "123456";
 
   /**
      * 读取控制台内容
@@ -45,7 +53,7 @@ public class CodeGeneratorForCTSEC {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
-        gc.setOpen(true);//是否打开输出目录
+        gc.setOpen(false);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -62,11 +70,11 @@ public class CodeGeneratorForCTSEC {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:oracle:thin:@172.88.5.107:1521:orcl");
+        dsc.setUrl(DS_URL);
         // dsc.setSchemaName("public"); 数据库 schema name
         dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
-        dsc.setUsername("duanxianbao");
-        dsc.setPassword("123456");
+        dsc.setUsername(DS_USERNAME);
+        dsc.setPassword(DS_PASSWORD);
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -93,24 +101,25 @@ public class CodeGeneratorForCTSEC {
         };
         //自定义模板
        List<FileOutConfig> focList = new ArrayList<>();
-        /*focList.add(new FileOutConfig("/templatesMybatis/web/list.vue.vm") {
+        focList.add(new FileOutConfig("/templatesCTSEC/dto.java.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return OUT_PUT_DIR+"/web/"+tableInfo.firstCharToLower(tableInfo.getEntityName())+"List.vue";
+                return ConfigBuilder.joinPath(OUT_PUT_DIR, PARENT_PACKAGE + StringPool.DOT + "dto") + "/" + tableInfo.getEntityName() + "DTO.java";
             }
-        });*/
+        });
         cfg.setFileOutConfigList(focList);
 
         mpg.setCfg(cfg);
 
         TemplateConfig tc = new TemplateConfig();
-        tc.setController("/templatesMybatis/controller.java.vm");
-        tc.setService("/templatesMybatis/service.java.vm");
-        tc.setServiceImpl("/templatesMybatis/serviceImpl.java.vm");
-        tc.setEntity("/templatesMybatis/entity.java.vm");
-        tc.setMapper("/templatesMybatis/mapper.java.vm");
-        //tc.setXml("/templatesMybatis/mapper.xml.vm");
+        tc.setController("/templatesCTSEC/controller.java.vm");
+        tc.setService("/templatesCTSEC/service.java.vm");
+        tc.setServiceImpl("/templatesCTSEC/serviceImpl.java.vm");
+        tc.setEntity("/templatesCTSEC/entity.java.vm");
+        tc.setMapper("/templatesCTSEC/mapper.java.vm");
+
+        //tc.setXml("/templatesCTSEC/mapper.xml.vm");
         tc.setXml(null);
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
         mpg.setTemplate(tc);
@@ -120,12 +129,12 @@ public class CodeGeneratorForCTSEC {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
-        strategy.setSuperEntityClass("com.my.common.entity.BaseEntity");//自定义继承的Entity类全称，带包名
+        strategy.setSuperEntityClass("com.ctsec.dzsw.core.entity.BaseEntity");//自定义继承的Entity类全称，带包名
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
         strategy.setRestControllerStyle(true);//生成 @RestController 控制器
-        strategy.setSuperControllerClass("com.my.common.controller.BaseController");//自定义继承的Controller类全称，带包名
+        strategy.setSuperControllerClass("com.ctsec.dzsw.core.controller.BaseController");//自定义继承的Controller类全称，带包名
         strategy.setInclude(TABLES);//需要包含的表名，允许正则表达式
-        //strategy.setSuperEntityColumns("id","reg_time","update_time","deleted");//自定义基础的Entity类，公共字段
+        strategy.setSuperEntityColumns("ID");//自定义基础的Entity类，公共字段
         strategy.setControllerMappingHyphenStyle(false);//驼峰转连字符
         strategy.setTablePrefix(TABLE_PRE_FIX);//表前缀
         mpg.setStrategy(strategy);

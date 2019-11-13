@@ -641,7 +641,7 @@ public class ConfigBuilder {
      * @param packageName 包名
      * @return 连接后的路径
      */
-    private String joinPath(String parentDir, String packageName) {
+    public static String joinPath(String parentDir, String packageName) {
         if (StringUtils.isEmpty(parentDir)) {
             parentDir = System.getProperty(ConstVal.JAVA_TMPDIR);
         }
