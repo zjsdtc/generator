@@ -59,6 +59,8 @@ public class PackageConfig {
      * Mapper包名
      */
     private String mapper = "mapper";
+
+    private String dto = "dto";
     /**
      * Mapper XML包名
      */

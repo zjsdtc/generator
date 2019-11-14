@@ -1,13 +1,10 @@
 package ${package.Mapper};
-${package.Entity}
-        .${entity};
-    ${superMapperClassPackage}
-        ;
+
+import ${package.Entity}.${entity};
+import ${superMapperClassPackage};
 
 /**
- * <p>
  * $!{table.comment}(${entity})数据库访问接口
- * </p>
  *
  * @author ${author}
  * @since ${date}

@@ -239,6 +239,7 @@ public class ConfigBuilder {
         packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper()));
         packageInfo.put(ConstVal.XML, joinPackage(config.getParent(), config.getXml()));
         packageInfo.put(ConstVal.SERVICE, joinPackage(config.getParent(), config.getService()));
+        packageInfo.put(ConstVal.DTO, joinPackage(config.getParent(), config.getDto()));
         packageInfo.put(ConstVal.SERVICE_IMPL, joinPackage(config.getParent(), config.getServiceImpl()));
         packageInfo.put(ConstVal.CONTROLLER, joinPackage(config.getParent(), config.getController()));
 

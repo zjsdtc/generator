@@ -1,19 +1,13 @@
-package ${package.Entity}import com.ctsec.dzsw.core.dto.ValidGroup;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+package ${package.Entity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+#if(${entityLombokModel})
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-;
-#foreach($pkg in ${table.importPackages})
-    ${pkg}
-        ;
 #end
-    #if(${swagger2})
-    #end
-    #if(${entityLombokModel})
-    #end
 
 /**
  *
@@ -32,9 +26,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 #end
 @TableName("${table.name}")
-#if(${swagger2})
-@ApiModel(value="${entity}", description="$!{table.comment}")
-#end
 #if(${superEntityClass})
 public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
 #elseif(${activeRecord})
@@ -54,9 +45,6 @@ public class ${entity} implements Serializable {
     /**
      * ${field.comment}
      */
-    #if(${swagger2})
-    @ApiModelProperty(value = "${field.comment} ${field.type}" , example="$!{field.example}")
-    #end
 #end
 #if(${field.keyFlag})
 ## 主键
@@ -85,31 +73,6 @@ public class ${entity} implements Serializable {
 ## 逻辑删除注解
 #if(${logicDeleteFieldName}==${field.name})
     @TableLogic
-#end
-## 参数校验 是否为空校验
-#if(!${field.nullFlag})
-    #if(${field.keyFlag})
-    @Null(message = "${field.comment}必须为空", groups = {ValidGroup.Save.class})
-    @NotNull(message = "${field.comment}不能为空", groups = {ValidGroup.Update.class})
-    #else
-        #if(${field.propertyType}=="String")
-    @NotBlank(message = "${field.comment}不能为空")
-        #else
-    @NotNull(message = "${field.comment}不能为空")
-        #end
-    #end
-#end
-##参数校验 长度校验 $!{field.maxLength} $!{field.fraction}
-#if("$!{field.maxLength}" != "")
-    #if(${field.numberFlag})
-        #if("$!{field.fraction}" != "0")
-    @Digits(integer = ${field.maxLength} , fraction = ${field.fraction} , message = "${field.comment}整数长度不能超过${field.maxLength}位,小数长度不能超过$!{field.fraction}位")
-        #else
-    @Digits(integer = ${field.maxLength} , fraction = 0 , message = "${field.comment}只能为整数且长度不能超过${field.maxLength}位")
-        #end
-    #else
-    @Size(max = ${field.maxLength} , message = "${field.comment}长度不能超过${field.maxLength}位")
-    #end
 #end
     private ${field.propertyType} ${field.propertyName};
 #end
