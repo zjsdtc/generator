@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.ctsec.dzsw.core.controller.Result;
 import java.util.List;
 import java.io.Serializable;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
