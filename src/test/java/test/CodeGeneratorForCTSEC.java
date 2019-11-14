@@ -19,7 +19,7 @@ public class CodeGeneratorForCTSEC {
 
     private static final String OUT_PUT_DIR = "D:\\IdeaWorkspace\\legalAdvice\\server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
     private static final String[] TABLES = new String[]{"LEGAL_ADVICE"};
-    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.legal.aaa";//父包名
+    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.legal.aa";//父包名
     private static final String[] TABLE_PRE_FIX = new String[]{};//表前缀
 
 

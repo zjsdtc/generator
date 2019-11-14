@@ -5,7 +5,9 @@ import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * $!{table.comment}(${entity})服务接口实现类
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service("${table.firstCharToLower(${table.serviceName})}")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 #if(${kotlin})
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
