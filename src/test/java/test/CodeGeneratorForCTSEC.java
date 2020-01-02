@@ -17,15 +17,15 @@ import java.util.*;
  */
 public class CodeGeneratorForCTSEC {
 
-    private static final String OUT_PUT_DIR = "D:\\IdeaWorkspace\\legalAdvice\\server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
-    private static final String[] TABLES = new String[]{"LEGAL_ADVICE"};
-    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.legal.aa";//父包名
-    private static final String[] TABLE_PRE_FIX = new String[]{};//表前缀
+    private static final String OUT_PUT_DIR = "E:\\code";//System.getProperty("user.dir")+"/src/main/java";
+    private static final String[] TABLES = new String[]{"CTZQ_APP_INFO"};
+    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.aps";//父包名
+    private static final String[] TABLE_PRE_FIX = new String[]{"CTZQ_"};//表前缀
 
 
-    private static final String DS_URL = "jdbc:oracle:thin:@172.15.3.108:1521:zzyfdb";
-    private static final String DS_USERNAME = "dzsw_sc";
-    private static final String DS_PASSWORD = "dzsw88";
+    private static final String DS_URL = "jdbc:oracle:thin:@172.88.5.107:1521:orcl";
+    private static final String DS_USERNAME = "dzswsec";
+    private static final String DS_PASSWORD = "dzsw11";
 
   /**
      * 读取控制台内容
@@ -53,7 +53,7 @@ public class CodeGeneratorForCTSEC {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
-        gc.setOpen(false);//是否打开输出目录
+        gc.setOpen(true);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
