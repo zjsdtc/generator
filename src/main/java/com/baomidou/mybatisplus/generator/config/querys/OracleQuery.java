@@ -46,6 +46,7 @@ public class OracleQuery extends AbstractDbQuery {
                 + "(CASE WHEN A.DATA_PRECISION IS NULL THEN A.DATA_TYPE "
                 + "WHEN NVL(A.DATA_SCALE, 0) > 0 THEN A.DATA_TYPE||'('||A.DATA_PRECISION||','||A.DATA_SCALE||')' "
                 + "ELSE A.DATA_TYPE||'('||A.DATA_PRECISION||')' END) "
+                + "WHEN A.DATA_TYPE='VARCHAR2' THEN A.DATA_TYPE||'('||A.DATA_LENGTH||')' "
                 + "ELSE A.DATA_TYPE END DATA_TYPE, B.COMMENTS,DECODE(A.NULLABLE,'Y','YES','NO') NULLABLE,DECODE(C.POSITION, '1', 'PRI') KEY "
                 + "FROM ALL_TAB_COLUMNS A "
                 + " INNER JOIN ALL_COL_COMMENTS B ON A.TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME AND B.OWNER = '#schema'"

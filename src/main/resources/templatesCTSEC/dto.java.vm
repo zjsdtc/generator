@@ -15,6 +15,7 @@ import lombok.experimental.Accessors;
 #end
 import javax.validation.constraints.*;
 import com.ctsec.dzsw.core.dto.ValidGroup;
+import com.ctsec.dzsw.core.annotation.CTLength;
 /**
  *
  * $!{table.comment}DTO
@@ -68,7 +69,7 @@ public class ${entity}DTO implements Serializable {
     @Digits(integer = ${field.maxLength} , fraction = 0 , message = "${field.comment}只能为整数且长度不能超过${field.maxLength}位")
         #end
     #else
-    @Size(max = ${field.maxLength} , message = "${field.comment}长度不能超过${field.maxLength}位")
+    @CTLength(max = ${field.maxLength} , message = "${field.comment}长度不能超过${field.maxLength}位")
     #end
 #end
     private ${field.propertyType} ${field.propertyName};
