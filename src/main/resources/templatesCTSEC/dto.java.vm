@@ -1,7 +1,9 @@
 package ${package.DTO};
 
 #foreach($pkg in ${table.importPackages})
+    #if(!${pkg.contains("baomidou.mybatisplus")})
 import ${pkg};
+    #end
 #end
 #if(${swagger2})
 import io.swagger.annotations.ApiModel;
@@ -12,7 +14,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 #end
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import com.ctsec.dzsw.core.dto.ValidGroup;
 /**
  *

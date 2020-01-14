@@ -17,9 +17,9 @@ import java.util.*;
  */
 public class CodeGeneratorForCTSEC {
 
-    private static final String OUT_PUT_DIR = "E:\\code";//System.getProperty("user.dir")+"/src/main/java";
-    private static final String[] TABLES = new String[]{"CTZQ_APP_INFO"};
-    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.aps";//父包名
+    private static final String OUT_PUT_DIR = "D:\\IdeaWorkspace\\permission_manage\\server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
+    private static final String[] TABLES = new String[]{"CTZQ_SYS_INFO"};
+    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.auth";//父包名
     private static final String[] TABLE_PRE_FIX = new String[]{"CTZQ_"};//表前缀
 
 
@@ -53,7 +53,7 @@ public class CodeGeneratorForCTSEC {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
-        gc.setOpen(true);//是否打开输出目录
+        gc.setOpen(false);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
