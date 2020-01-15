@@ -68,6 +68,7 @@ public class ${table.controllerName} {
     @PostMapping("insert")
     public Result insert(@RequestBody @Validated({ValidGroup.Save.class}) ${table.entityName}DTO dto){
         ${table.entityName} entity = BeanCopyUtils.copy(dto, ${table.entityName}.class);
+        entity.setCreateTime(LocalDateTime.now());
         return success(this.${table.firstCharToLower(${table.serviceName})}.save(entity));
     }
 
@@ -98,6 +99,7 @@ public class ${table.controllerName} {
     @PostMapping("update")
     public Result update(@RequestBody @Validated({ValidGroup.Update.class})  ${table.entityName}DTO dto){
         ${table.entityName} entity = BeanCopyUtils.copy(dto, ${table.entityName}.class);
+        entity.setUpdateTime(LocalDateTime.now());
         return success(this.${table.firstCharToLower(${table.serviceName})}.updateById(entity));
     }
 
