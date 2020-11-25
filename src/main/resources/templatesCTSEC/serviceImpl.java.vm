@@ -2,13 +2,16 @@ package ${package.ServiceImpl};
 
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
-import ${package.Service}.${table.serviceName};
+
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.transaction.annotation.Transactional;
+import com.ctsec.dzsw.core.util.BeanCopyUtils;
+import java.time.LocalDateTime;
+import ${package.DTO}.${entity}DTO;
 /**
  * $!{table.comment}(${entity})服务接口实现类
  *
@@ -18,12 +21,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 @Service("${table.firstCharToLower(${table.serviceName})}")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-#if(${kotlin})
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+public class ${table.serviceName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}>  {
 
-}
-#else
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+    /**
+    * 新增记录
+    *
+    * @param dto 信息
+    * @return 主键
+    */
+    @Transactional(rollbackFor = Exception.class)
+    public Long add${entity}(${entity}DTO dto) {
+        ${entity} entity = BeanCopyUtils.copy(dto, ${entity}.class);
+        entity.setCreateTime(LocalDateTime.now());
+        this.save(entity);
+        return entity.getId();
+    }
 
+    /**
+     * 根据id删除
+     *
+     * @param id 主键
+     * @return 影响行数
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Integer delete${entity}(Long id) {
+        int count = baseMapper.deleteById(id);
+        return count;
+    }
+
+    /**
+     * 修改信息
+     *
+     * @param dto 信息
+     * @return successFlag
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean update${entity}(${entity}DTO dto) {
+        ${entity} entity = BeanCopyUtils.copy(dto, ${entity}.class);
+        entity.setUpdateTime(LocalDateTime.now());
+        Boolean result = this.updateById(entity);
+        return result;
+    }
 }
-#end
+

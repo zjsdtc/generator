@@ -17,9 +17,9 @@ import java.util.*;
  */
 public class CodeGeneratorForCTSEC {
 
-    private static final String OUT_PUT_DIR = "D:\\code";//"D:\\ideaWorkspace\\livesys\\live_server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
-    private static final String[] TABLES = new String[]{"CTZQ_LIVE_CHATROOM"};
-    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.live";//父包名
+    private static final String OUT_PUT_DIR = "C:\\idea workspace\\ctetf\\server\\src\\main\\java";//System.getProperty("user.dir")+"/src/main/java";
+    private static final String[] TABLES = new String[]{"CTZQ_ETF_INFO"};
+    private static final String PARENT_PACKAGE = "com.ctsec.dzsw.ctetf2";//父包名
     private static final String[] TABLE_PRE_FIX = new String[]{"CTZQ_"};//表前缀
 
 
@@ -36,7 +36,7 @@ public class CodeGeneratorForCTSEC {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(OUT_PUT_DIR);//生成文件的输出目录
         gc.setAuthor("zhaijiang");//开发人员
-        gc.setOpen(true);//是否打开输出目录
+        gc.setOpen(false);//是否打开输出目录
         gc.setServiceName("%sService");//service 命名方式
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -66,7 +66,7 @@ public class CodeGeneratorForCTSEC {
         pc.setParent(PARENT_PACKAGE);//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
         pc.setEntity("entity");
         pc.setService("service");
-        pc.setServiceImpl("service.impl");
+        pc.setServiceImpl("service");
         pc.setController("controller");//设置控制器包名
         pc.setMapper("mapper");
         pc.setDto("dto");
@@ -98,8 +98,8 @@ public class CodeGeneratorForCTSEC {
 
         TemplateConfig tc = new TemplateConfig();
         tc.setController("/templatesCTSEC/controller.java.vm");
-        tc.setService("/templatesCTSEC/service.java.vm");
-        tc.setServiceImpl("/templatesCTSEC/serviceImpl.java.vm");
+        tc.setService("/templatesCTSEC/serviceImpl.java.vm");
+        tc.setServiceImpl(null);
         tc.setEntity("/templatesCTSEC/entity.java.vm");
         tc.setMapper("/templatesCTSEC/mapper.java.vm");
 

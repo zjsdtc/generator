@@ -28,7 +28,7 @@ import com.ctsec.dzsw.core.annotation.CTLength;
 @Accessors(chain = true)
 #end
 #if(${swagger2})
-@ApiModel(value="${entity}DTO", description="$!{table.comment}")
+@ApiModel(description="$!{table.comment}")
 #end
 public class ${entity}DTO implements Serializable {
 
